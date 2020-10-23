@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Darker+Grotesque&display=swap"
+      rel="stylesheet"
+    />
+    <title>BikeShop - Home</title>
+    <script
+      src="https://kit.fontawesome.com/a41e9403cf.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="row">
+      <nav class="navbar navbar-light bg-dark col-12 py-0">
+        <a class="navbar py-0" href="/">
+          <img
+            src="/images/bike-logo.svg"
+            width="60"
+            height="60"
+            class="logo"
+            alt=""
+          />
+          <p class="mb-0">The Bike Shop Experience</p>
+        </a>
+      </nav>
+    </div>
+    <div id="picture-header"></div>
+
+    <!-- BIKES SECTION: initializing of the grid here -->
+    <section id="bike">
+      <div class="container-fluid">
+        <div class="row mt-5 mx-0">
+          <% for(var i = 0; i < dataBike.length; i++){ %>
+          <div class="col-10 col-sm-6 col-md-4 col-xl-4">
+            <div class="card mb-0">
+              <img
+                src="<%= dataBike[i].urlImage %>"
+                class="card-img-top"
+                alt="bike-1"
+              />
+              <div class="card-body">
+                <h5 class="card-title text-center font-weight-light">
+                  <%= dataBike[i].nomVelo %>
+                </h5>
+                <div class="row justify-content-center align-items-center">
+                  <h6 class="font-weight-light mr-2 my-0">
+                    <%= dataBike[i].prix %>€
+                  </h6>
+                  <a
+                    href="/shop?nomVelo=<%= dataBike[i].nomVelo %>&urlImage=<%= dataBike[i].urlImage %>&prix=<%= dataBike[i].prix %>"
+                  >
+                    <button type="button" class="btn btn-outline-info">
+                      Buy
+                    </button></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scripts ------------------------------------------- -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/javascripts/script.js"></script>
+  </body>
+</html>

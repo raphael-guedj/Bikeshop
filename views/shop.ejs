@@ -20,6 +20,7 @@
       src="https://kit.fontawesome.com/a41e9403cf.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://js.stripe.com/v3/"></script>
   </head>
 
   <body>
@@ -51,8 +52,11 @@
 
     <h1 class="ml-4 mb-3">Basket</h1>
     <% if ( dataCardBike.length === 0) { %>
-    
-        <h2 class="text-danger font-italic ml-4 mb-3">No article in the Basket</h2>
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-danger font-italic ml-4 mb-3">
+          No article in the Basket
+        </h2>
       </div>
     </div>
     <% } else { %>
@@ -120,13 +124,20 @@
       </tbody>
     </table>
     <div class="row justify-content-end col-12">
-      <button type="button" class="btn btn-outline-info">Checkout</button>
+      <button
+        id="checkout-button"
+        name="checkout-button"
+        class="btn btn-outline-info"
+      >
+        Checkout
+      </button>
     </div>
     <% } %>
     <!-- scripts -->
     <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.jintegrity="
-      sha384-q8+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizcrossorigin="anonymous"
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jiz"
+      crossorigin="anonymous"
     ></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -138,5 +149,6 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="javascripts/script.js"></script>
   </body>
 </html>

@@ -1,6 +1,10 @@
 var express = require("express");
 var router = express.Router();
 
+const stripe = require("stripe")(
+  "sk_test_51HfMNlJwg74ZmQA5wk1toLTGCSNTXeG5plRYf5lf3yBK6o7PwGlrWORQK0dPplUU5q2zx9am5jiPlxH3ySsIzIUz00TWM6PLJy"
+);
+
 /* GET home page. */
 
 var dataBike = [
@@ -53,15 +57,14 @@ router.get("/shop", function (req, res, next) {
   for (var i = 0; i < req.session.dataCardBike.length; i++) {
     if (req.session.dataCardBike[i].nomVelo === req.query.nomVelo) {
       exist = true;
-      req.session.dataCardBike[i].quantite += 1;
+      req.session.dataCardBike[i].quantite =
+        Number(req.session.dataCardBike[i].quantite) + 1;
     }
   }
 
   if (exist === false) {
     req.session.dataCardBike.push(req.query);
   }
-
-  console.log(req.query);
 
   res.render("shop", { dataCardBike: req.session.dataCardBike });
 });
@@ -78,6 +81,39 @@ router.post("/update", function (req, res) {
   req.session.dataCardBike[req.body.position].quantite = req.body.quantite;
   console.log(req.session.dataCardBike);
   res.render("shop", { dataCardBike: req.session.dataCardBike });
+});
+
+//route create session API
+
+router.post("/create-session", async (req, res) => {
+  var dataStripe = [];
+  for (var i = 0; i < req.session.dataCardBike.length; i++) {
+    dataStripe.push({
+      currency: "eur",
+      name: req.session.dataCardBike[i].nomVelo,
+      images: [req.session.dataCardBike[i].urlImage],
+      amount: req.session.dataCardBike[i].prix * 100,
+      quantity: req.session.dataCardBike[i].quantite,
+    });
+    console.log(dataStripe);
+  }
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: dataStripe,
+    mode: "payment",
+    success_url: `http://127.0.0.1:3000/success`,
+    cancel_url: `http://127.0.0.1:3000/cancel`,
+  });
+  res.json({ id: session.id });
+});
+
+router.get("/success", function (req, res, next) {
+  res.render("success");
+});
+
+router.get("/cancel", function (req, res, next) {
+  res.render("cancel");
 });
 
 module.exports = router;

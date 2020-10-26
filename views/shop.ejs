@@ -54,9 +54,7 @@
     <% if ( dataCardBike.length === 0) { %>
     <div class="row">
       <div class="col-12">
-        <h2 class="text-danger font-italic ml-4 mb-3">
-          No article in the Basket
-        </h2>
+        <h2 class="text-danger font-italic ml-4 mb-3">Votre panier est vide</h2>
       </div>
     </div>
     <% } else { %>
@@ -69,14 +67,17 @@
           <th scope="col">Model</th>
           <th scope="col">Quantity</th>
           <th scope="col">Price</th>
+          <th scope="col">Frais de port</th>
           <th scope="col">Total</th>
           <th scope="col">Suppr</th>
         </tr>
       </thead>
       <tbody>
-        <% var prixTotal = 0 %> <% for(var i = 0; i < dataCardBike.length; i++ )
-        { var prixRow = dataCardBike[i].prix * dataCardBike[i].quantite;
-        prixTotal += prixRow %>
+        <% var fraisPortTotal = 0; %><% for(var i = 0; i < dataCardBike.length;
+        i++ ) { var prixRow = (dataCardBike[i].prix * dataCardBike[i].quantite)
+        + (dataCardBike[i].fraisdePort * dataCardBike[i].quantite);
+        fraisPortTotal += dataCardBike[i].fraisdePort * dataCardBike[i].quantite
+        %>
         <tr class="bg-light text-dark">
           <th scope="row"><%= i + 1 %></th>
           <td>
@@ -103,6 +104,9 @@
             </form>
           </td>
           <td><%= dataCardBike[i].prix %>€</td>
+          <td>
+            <%= dataCardBike[i].fraisdePort * dataCardBike[i].quantite %>€
+          </td>
           <td><%= prixRow %>€</td>
           <td>
             <a href="/delete?id=<%= i %>">
@@ -117,9 +121,18 @@
           <td></td>
           <td></td>
           <td></td>
-          <td class="font-weight-bold py-3">Total Basket</td>
-          <td class="font-weight-bold py-3"><%= prixTotal %>€</td>
           <td></td>
+          <td class="font-weight-bold py-3">Total Basket</td>
+          <td class="font-weight-bold py-3">
+            <%= prixTotal + fraisPortTotal %>€
+          </td>
+          <% if(fraisPortTotal === 0) { %>
+          <td class="font-weight-bold text-success py-3">
+            Frais de port offert !
+          </td>
+          <% } else { %>
+          <td></td>
+          <% } %>
         </tr>
       </tbody>
     </table>

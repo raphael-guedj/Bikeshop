@@ -42,9 +42,18 @@
     <!-- BIKES SECTION: initializing of the grid here -->
     <section id="bike">
       <div class="container-fluid">
-        <div class="row mt-5 mx-0">
+        <h4 class="text-center">Nos produits les moins chers :</h4>
+        <ul class="list-group list-group-horizontal justify-content-center">
+          <% for (var i = 0; i < dataBike.length; i++) { %> <% if
+          (dataBike[i].mea) { %>
+          <li class="list-group-item p-3 mb-2 bg-success text-white">
+            <%= dataBike[i].nomVelo %>
+          </li>
+          <% } %> <% } %>
+        </ul>
+        <div class="row mt-4 mx-0">
           <% for(var i = 0; i < dataBike.length; i++){ %>
-          <div class="col-10 col-sm-6 col-md-4 col-xl-4">
+          <div class="col-12 col-sm-6 col-md-4 col-xl-4">
             <div class="card mb-0">
               <img
                 src="<%= dataBike[i].urlImage %>"
